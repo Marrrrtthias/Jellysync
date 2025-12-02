@@ -62,6 +62,9 @@ def main():
             if FULL_REFRESH_FILENAME in sync_files:
                 handle_full_refresh()
 
+            if "test.sync" in sync_files:
+                print("teleting test file")
+
         time.sleep(POLL_INTERVAL)
 
 
