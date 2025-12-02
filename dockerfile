@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir requests
 COPY jellysync.py .
 
 # Run the script
-CMD ["python", "jellysync.py"]
+CMD ["python", "-u", "watcher.py"]
