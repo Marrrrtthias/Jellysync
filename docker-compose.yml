@@ -1,0 +1,10 @@
+services:
+  jellysync:
+    image: marrrrtthias/jellysync
+    container_name: jellysync
+    environment:
+      - FULL_REFRESH_ENDPOINT=http://jellyfin:8096/Library/Refresh
+      - INCREMENTAL_ENDPOINT=http://jellyfin:8096/Library/Series/Added
+      - POLL_INTERVAL=10
+    volumes:
+      - /volume2/jellysync:/jellysync
