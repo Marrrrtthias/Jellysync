@@ -6,6 +6,7 @@ import sys
 # ---------- CONFIG ----------
 JELLYSYNC_FOLDER = "/jellysync"
 FULL_REFRESH_FILENAME = "full_refresh.sync"
+TEST_FILENAME="test.sync"
 
 # REST endpoints# Read endpoint from environment variable
 FULL_REFRESH_ENDPOINT = os.getenv("FULL_REFRESH_ENDPOINT")
@@ -62,8 +63,12 @@ def main():
             if FULL_REFRESH_FILENAME in sync_files:
                 handle_full_refresh()
 
-            if "test.sync" in sync_files:
-                print("teleting test file")
+            if TEST_FILENAME in sync_files:
+                print("deleting test file")
+            try:
+                os.remove(os.path.join(JELLYSYNC_FOLDER, TEST_FILENAME))
+            except Exception as e:
+                print("Error deleting file", TEST_FILENAME, ":", e)
 
         time.sleep(POLL_INTERVAL)
 
