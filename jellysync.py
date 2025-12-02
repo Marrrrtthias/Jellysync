@@ -28,7 +28,7 @@ POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", default=5))
 # ----------------------------
 
 HEADERS = {
-    "Authorization": f"BMediaBrowser Token=\"{JELLYFIN_API_KEY}\", Client=\"jellysync\"",
+    "Authorization": f"MediaBrowser Token=\"f2b2bddc0190481eb79eb6220ebe340a\", Client=\"jellysync\"",
     "Content-Type": "application/json"
 }
 
