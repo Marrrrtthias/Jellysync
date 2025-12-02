@@ -51,6 +51,13 @@ def handle_full_refresh():
         except Exception as e:
             print("Error deleting file", file, ":", e)
 
+def hande_test_file():
+    print("Detected testfile. Deleting it.")
+    try:
+        os.remove(os.path.join(JELLYSYNC_FOLDER, TEST_FILENAME))
+    except Exception as e:
+        print("Error deleting file", TEST_FILENAME, ":", e)
+
 def main():
     print("Watcher started. Monitoring folder ", JELLYSYNC_FOLDER, " at an interval of ", POLL_INTERVAL, " seconds.")
 
@@ -64,11 +71,7 @@ def main():
                 handle_full_refresh()
 
             if TEST_FILENAME in sync_files:
-                print("deleting test file")
-            try:
-                os.remove(os.path.join(JELLYSYNC_FOLDER, TEST_FILENAME))
-            except Exception as e:
-                print("Error deleting file", TEST_FILENAME, ":", e)
+                hande_test_file()
 
         time.sleep(POLL_INTERVAL)
 
