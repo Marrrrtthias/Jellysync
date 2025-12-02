@@ -12,10 +12,6 @@ FULL_REFRESH_ENDPOINT = os.getenv("FULL_REFRESH_ENDPOINT")
 if not FULL_REFRESH_ENDPOINT:
     print("ERROR: Environment variable FULL_REFRESH_ENDPOINT is not set.")
     sys.exit(1)
-INCREMENTAL_ENDPOINT = os.getenv("INCREMENTAL_ENDPOINT")
-if not INCREMENTAL_ENDPOINT:
-    print("ERROR: Environment variable INCREMENTAL_ENDPOINT is not set")
-    sys.exit(1)
 
 # API key for Jellyfin
 JELLYFIN_API_KEY = os.getenv("JELLYFIN_API_KEY")
