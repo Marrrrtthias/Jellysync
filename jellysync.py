@@ -17,10 +17,20 @@ if not INCREMENTAL_ENDPOINT:
     print("ERROR: Environment variable INCREMENTAL_ENDPOINT is not set")
     sys.exit(1)
 
+# API key for Jellyfin
+JELLYFIN_API_KEY = os.getenv("JELLYFIN_API_KEY")
+if not JELLYFIN_API_KEY:
+    print("ERROR: JELLYFIN_API_KEY must be set")
+    sys.exit(1)
+
 # Poll interval in seconds
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", default=5))
 # ----------------------------
 
+HEADERS = {
+    "Authorization": f"BMediaBrowser Token=\"{JELLYFIN_API_KEY}\", Client=\"jellysync\"",
+    "Content-Type": "application/json"
+}
 
 def list_sync_files():
     """Return a list of all *.sync files in the folder."""
@@ -30,7 +40,7 @@ def list_sync_files():
 def handle_full_refresh():
     print("Full refresh triggered! Calling ", FULL_REFRESH_ENDPOINT)
     try:
-        response = requests.post(FULL_REFRESH_ENDPOINT)
+        response = requests.post(FULL_REFRESH_ENDPOINT, headers=HEADERS)
         response.raise_for_status()
         print("Full refresh REST call successful.")
     except Exception as e:
@@ -66,7 +76,8 @@ def handle_incremental(sync_files):
         try:
             resp = requests.post(
                 INCREMENTAL_ENDPOINT,
-                json={"tvdbId": id_without_ext}
+                json={"tvdbId": id_without_ext},
+                headers=HEADERS
             )
             resp.raise_for_status()
             print(f"Incremental REST call for {id_without_ext} successful.")
