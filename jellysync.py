@@ -51,7 +51,7 @@ def handle_incremental(sync_files):
             continue
 
         # test file created when testing the script in Sonarr
-        if fname == "test.sync"
+        if fname == "test.sync":
             try:
                 os.remove(os.path.join(JELLYSYNC_FOLDER, fname))
             except Exception as e:
