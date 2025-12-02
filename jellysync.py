@@ -54,44 +54,6 @@ def handle_full_refresh():
         except Exception as e:
             print("Error deleting file", file, ":", e)
 
-
-def handle_incremental(sync_files):
-    for fname in sync_files:
-        if fname == FULL_REFRESH_FILENAME:
-            continue
-
-        # test file created when testing the script in Sonarr
-        if fname == "test.sync":
-            try:
-                os.remove(os.path.join(JELLYSYNC_FOLDER, fname))
-            except Exception as e:
-                print("Error deleting file", fname, ":", e)
-            print("Deleted test file ", fname)
-            continue
-
-
-        tvdbid = fname.replace(".sync", "")
-        tvdbid = tvdbid.replace("update_", "")
-        print(f"Calling {INCREMENTAL_ENDPOINT} with tvdbId: {tvdbid}")
-
-        try:
-            resp = requests.post(
-                INCREMENTAL_ENDPOINT,
-                json={"tvdbId": tvdbid},
-                headers=HEADERS
-            )
-            resp.raise_for_status()
-            print(f"Incremental REST call for {tvdbid} successful.")
-        except Exception as e:
-            print(f"Error sending incremental update for {tvdbid}:", e)
-
-        # Delete the file after processing
-        try:
-            os.remove(os.path.join(JELLYSYNC_FOLDER, fname))
-        except Exception as e:
-            print("Error deleting file", fname, ":", e)
-
-
 def main():
     print("Watcher started. Monitoring folder ", JELLYSYNC_FOLDER, " at an interval of ", POLL_INTERVAL, " seconds.")
 
@@ -103,8 +65,6 @@ def main():
 
             if FULL_REFRESH_FILENAME in sync_files:
                 handle_full_refresh()
-            else:
-                handle_incremental(sync_files)
 
         time.sleep(POLL_INTERVAL)
 
