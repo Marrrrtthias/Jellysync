@@ -50,6 +50,15 @@ def handle_incremental(sync_files):
         if fname == FULL_REFRESH_FILENAME:
             continue
 
+        # test file created when testing the script in Sonarr
+        if fname == "test.sync"
+            try:
+                os.remove(os.path.join(JELLYSYNC_FOLDER, fname))
+            except Exception as e:
+                print("Error deleting file", fname, ":", e)
+            continue
+
+
         id_without_ext = fname.replace(".sync", "")
         print(f"Calling {INCREMENTAL_ENDPOINT} with tvdbId: {id_without_ext}")
 
