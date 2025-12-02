@@ -70,19 +70,20 @@ def handle_incremental(sync_files):
             continue
 
 
-        id_without_ext = fname.replace(".sync", "")
-        print(f"Calling {INCREMENTAL_ENDPOINT} with tvdbId: {id_without_ext}")
+        tvdbid = fname.replace(".sync", "")
+        tvdbid = tvdbid.replace("update_", "")
+        print(f"Calling {INCREMENTAL_ENDPOINT} with tvdbId: {tvdbid}")
 
         try:
             resp = requests.post(
                 INCREMENTAL_ENDPOINT,
-                json={"tvdbId": id_without_ext},
+                json={"tvdbId": tvdbid},
                 headers=HEADERS
             )
             resp.raise_for_status()
-            print(f"Incremental REST call for {id_without_ext} successful.")
+            print(f"Incremental REST call for {tvdbid} successful.")
         except Exception as e:
-            print(f"Error sending incremental update for {id_without_ext}:", e)
+            print(f"Error sending incremental update for {tvdbid}:", e)
 
         # Delete the file after processing
         try:
