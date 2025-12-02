@@ -1,6 +1,6 @@
 # Jellysync 
 
-Automatically update your Jellyfin library from Sonarr without direct communication between the two. Useful when real time monitoring of libraries is not available.
+Automatically update your Jellyfin library from Sonarr without direct communication between the two. Useful when real time monitoring of libraries is not available like on some Ugreen NAS models.
 
 ## Working Principle
 
