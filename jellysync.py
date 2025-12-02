@@ -18,7 +18,7 @@ if not INCREMENTAL_ENDPOINT:
     sys.exit(1)
 
 # Poll interval in seconds
-POLL_INTERVAL = os.getenv("POLL_INTERVAL", default=5)
+POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", default=5))
 # ----------------------------
 
 
