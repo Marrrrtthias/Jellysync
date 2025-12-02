@@ -56,6 +56,7 @@ def handle_incremental(sync_files):
                 os.remove(os.path.join(JELLYSYNC_FOLDER, fname))
             except Exception as e:
                 print("Error deleting file", fname, ":", e)
+            print("Deleted test file ", fname)
             continue
 
 
